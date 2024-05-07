@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Markdown Editor</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Markdown Editor</h1>
+        <div class="toolbar mb-3">
+            <button class="btn btn-primary" onclick="applyMarkdown('bold')"><b>B</b></button>
+            <button class="btn btn-primary" onclick="applyMarkdown('italic')"><i>I</i></button>
+            <button class="btn btn-primary" onclick="applyMarkdown('underline')"><u>U</u></button>
+            <button class="btn btn-primary" onclick="insertImage()">Insert Image</button>
+        </div>
+        <textarea class="form-control" id="markdown-editor" rows="10"></textarea>
+    </div>
+    <script>
+        function applyMarkdown(action) {
+    const editor = document.getElementById("markdown-editor");
+    const start = editor.selectionStart;
+    const end = editor.selectionEnd;
+    const selectedText = editor.value.substring(start, end);
+
+    let markdownText = '';
+
+    switch (action) {
+        case 'bold':
+            markdownText = `**${selectedText}**`;
+            break;
+        case 'italic':
+            markdownText = `*${selectedText}*`;
+            break;
+        case 'underline':
+            markdownText = `<u>${selectedText}</u>`;
+            break;
+        default:
+            break;
+    }
+
+    editor.value = editor.value.substring(0, start) + markdownText + editor.value.substring(end);
+}
+
+function insertImage() {
+    const imageUrl = prompt("Enter image URL");
+    if (imageUrl) {
+        const editor = document.getElementById("markdown-editor");
+        const start = editor.selectionStart;
+        const imageMarkdown = `![Alt text](${imageUrl})`;
+
+        editor.value = editor.value.substring(0, start) + imageMarkdown + editor.value.substring(start);
+    }
+}
+    </script>
+</body>
+</html>
