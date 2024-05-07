@@ -5,3 +5,8 @@ body {
 .toolbar button {
     margin-right: 5px;
 }
+
+#markdown-preview {
+    background-color: #fff;
+    min-height: 250px;
+}
