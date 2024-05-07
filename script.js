@@ -16,6 +16,15 @@ function applyMarkdown(action) {
         case 'underline':
             markdownText = `<u>${selectedText}</u>`;
             break;
+        case 'buyukBaslik':
+            markdownText = `# ${selectedText}`;
+            break;
+        case 'ortaBaslik':
+            markdownText = `## ${selectedText}`;
+            break;
+        case 'kucukBaslik':
+            markdownText = `### ${selectedText}`;
+            break;
         default:
             break;
     }
@@ -36,6 +45,30 @@ function insertImage() {
     }
 }
 
+function insertYouTube() {
+    const videoId = prompt("Enter YouTube video ID");
+    if (videoId) {
+        const editor = document.getElementById("markdown-editor");
+        const start = editor.selectionStart;
+        const youtubeMarkdown = `<YouTube youTubeId="${videoId}" />`;
+
+        editor.value = editor.value.substring(0, start) + youtubeMarkdown + editor.value.substring(start);
+        updatePreview();
+    }
+}
+
+function insertTweet() {
+    const tweetLink = prompt("Enter Tweet link (e.g., Pilestedt/status/178645465925675844)");
+    if (tweetLink) {
+        const editor = document.getElementById("markdown-editor");
+        const start = editor.selectionStart;
+        const tweetMarkdown = `<Tweet tweetLink="${tweetLink}" />`;
+
+        editor.value = editor.value.substring(0, start) + tweetMarkdown + editor.value.substring(start);
+        updatePreview();
+    }
+}
+
 function updatePreview() {
     const editor = document.getElementById("markdown-editor");
     const preview = document.getElementById("markdown-preview");
@@ -50,7 +83,7 @@ function downloadMarkdown() {
     const title = document.getElementById("title").value || 'Untitled';
     const image = document.getElementById("image").value || '';
     const alt = document.getElementById("alt").value || '';
-    const writer = document.getElementById("writer").value || 'Anonymous';
+    const writer = document.getElementById("writer").value || 'Konuk';
     const summary = document.getElementById("summary").value || '';
     const tagsInput = document.getElementById("tags").value || '';
     const tags = tagsInput.split(',').map(tag => tag.trim());
@@ -74,16 +107,29 @@ tags:\n`;
     });
     metadata += `---\n\n`;
 
+    // Script imports
+    let scriptImports = `<script>\n`;
+    let imports = [];
+    const editorContent = document.getElementById("markdown-editor").value;
+
+    if (editorContent.includes('<YouTube')) imports.push('YouTube');
+    if (editorContent.includes('<Tweet')) imports.push('Tweet');
+
+    if (imports.length > 0) {
+        scriptImports += `  import { ${imports.join(', ')} } from 'sveltekit-embed'\n`;
+    }
+    scriptImports += `</script>\n\n`;
+
     // Markdown content
-    const editor = document.getElementById("markdown-editor");
-    const markdownContent = editor.value;
-    const completeContent = metadata + markdownContent;
+    const markdownContent = editorContent;
+    const completeContent = metadata + scriptImports + markdownContent;
 
     const blob = new Blob([completeContent], { type: 'text/markdown' });
     const url = URL.createObjectURL(blob);
 
     const a = document.createElement('a');
     a.href = url;
+
     a.download = 'document.md';
     document.body.appendChild(a);
     a.click();

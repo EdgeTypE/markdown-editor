@@ -44,11 +44,16 @@
             </div>
         </form>
         <div class="toolbar mb-3">
-            <button class="btn btn-primary" onclick="applyMarkdown('bold')"><b>B</b></button>
-            <button class="btn btn-primary" onclick="applyMarkdown('italic')"><i>I</i></button>
-            <button class="btn btn-primary" onclick="applyMarkdown('underline')"><u>U</u></button>
-            <button class="btn btn-primary" onclick="insertImage()">Insert Image</button>
-            <button class="btn btn-primary" onclick="downloadMarkdown()">Download .md</button>
+            <button class="btn btn-primary" onclick="applyMarkdown('bold')"><b>Kalın</b></button>
+            <button class="btn btn-primary" onclick="applyMarkdown('italic')"><i>İtalik</i></button>
+            <!-- <button class="btn btn-primary" onclick="applyMarkdown('underline')"><u>U</u></button> -->
+            <button class="btn btn-primary" onclick="applyMarkdown('buyukBaslik')"><u>Büyük Başlık</u></button>
+            <button class="btn btn-primary" onclick="applyMarkdown('ortaBaslik')"><u>Orta Başlık</u></button>
+            <button class="btn btn-primary" onclick="applyMarkdown('kucukBaslik')"><u>Küçük Başlık</u></button>
+            <button class="btn btn-primary" onclick="insertImage()">Resim koy</button>
+            <button class="btn btn-primary" onclick="insertYouTube()">YouTube linki koy</button>
+            <button class="btn btn-primary" onclick="insertTweet()">Tweet göm</button>
+            <button class="btn btn-primary" onclick="downloadMarkdown()">Haberi indir</button>
         </div>
         <ul class="nav nav-tabs mb-3">
             <li class="nav-item">
@@ -71,7 +76,7 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Showdown JavaScript Library (Markdown to HTML Converter) -->
-    <script src="https://unpkg.com/showdown/dist/showdown.min.js"></script>
+    <script src="showdown.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
