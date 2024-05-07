@@ -46,9 +46,40 @@ function updatePreview() {
 }
 
 function downloadMarkdown() {
+    // Metadata form values
+    const title = document.getElementById("title").value || 'Untitled';
+    const image = document.getElementById("image").value || '';
+    const alt = document.getElementById("alt").value || '';
+    const writer = document.getElementById("writer").value || 'Anonymous';
+    const summary = document.getElementById("summary").value || '';
+    const tagsInput = document.getElementById("tags").value || '';
+    const tags = tagsInput.split(',').map(tag => tag.trim());
+
+    // Get current date
+    const today = new Date().toISOString().split('T')[0];
+
+    // Metadata string
+    let metadata = `---
+title: "${title}"
+image: '${image}'
+alt: '${alt}'
+created: ${today}
+updated: ${today}
+writer: ${writer}
+summary: "${summary}"
+tags:\n`;
+
+    tags.forEach(tag => {
+        metadata += `  - '${tag}'\n`;
+    });
+    metadata += `---\n\n`;
+
+    // Markdown content
     const editor = document.getElementById("markdown-editor");
     const markdownContent = editor.value;
-    const blob = new Blob([markdownContent], { type: 'text/markdown' });
+    const completeContent = metadata + markdownContent;
+
+    const blob = new Blob([completeContent], { type: 'text/markdown' });
     const url = URL.createObjectURL(blob);
 
     const a = document.createElement('a');
