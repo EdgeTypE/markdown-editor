@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Haberler Uploader</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Haber Yükle</h1>
+    <form id="uploadForm">
+        <label for="title">Başlık:</label>
+        <input type="text" id="title" name="title" required><br><br>
+
+        <label for="content">İçerik (.md formatında):</label>
+        <input type="file" id="content" name="content" accept=".md" required><br><br>
+
+        <label for="accessToken">GitHub Personal Access Token:</label>
+        <input type="password" id="accessToken" name="accessToken" required><br><br>
+
+        <button type="submit">Yükle</button>
+    </form>
+    <p id="message"></p>
+
+    <script src="script.js"></script>
+</body>
+</html>
