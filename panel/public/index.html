@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Markdown Editor</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Markdown Editor</h1>
+        <form id="metadata-form" class="mb-4">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="title">Title</label>
+                    <input type="text" class="form-control" id="title" placeholder="Enter title" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="writer">Writer</label>
+                    <input type="text" class="form-control" id="writer" placeholder="Enter writer">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="image">Image</label>
+                    <input type="text" class="form-control" id="image" placeholder="Enter image URL">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="alt">Alt Text</label>
+                    <input type="text" class="form-control" id="alt" placeholder="Enter alt text">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="summary">Summary</label>
+                    <input type="text" class="form-control" id="summary" placeholder="Enter summary">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="tags">Tags (comma-separated)</label>
+                    <input type="text" class="form-control" id="tags" placeholder="Enter tags">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label for="accessToken">GitHub Personal Access Token</label>
+                    <input type="password" class="form-control" id="accessToken" placeholder="Enter your GitHub token" required>
+                </div>
+            </div>
+        </form>
+        <div class="toolbar mb-3">
+            <button class="btn btn-primary" onclick="applyMarkdown('bold')"><b>Kalın</b></button>
+            <button class="btn btn-primary" onclick="applyMarkdown('italic')"><i>İtalik</i></button>
+            <button class="btn btn-primary" onclick="applyMarkdown('buyukBaslik')"><u>Büyük Başlık</u></button>
+            <button class="btn btn-primary" onclick="applyMarkdown('ortaBaslik')"><u>Orta Başlık</u></button>
+            <button class="btn btn-primary" onclick="applyMarkdown('kucukBaslik')"><u>Küçük Başlık</u></button>
+            <button class="btn btn-primary" onclick="insertImage()">Resim koy</button>
+            <button class="btn btn-primary" onclick="insertYouTube()">YouTube linki koy</button>
+            <button class="btn btn-primary" onclick="insertTweet()">Tweet göm</button>
+        </div>
+        <ul class="nav nav-tabs mb-3">
+            <li class="nav-item">
+                <a class="nav-link active" id="edit-tab" data-toggle="tab" href="#edit" role="tab">Edit</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="preview-tab" data-toggle="tab" href="#preview" role="tab">Preview</a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane fade show active" id="edit" role="tabpanel">
+                <textarea class="form-control" id="markdown-editor" rows="10" oninput="updatePreview()"></textarea>
+            </div>
+            <div class="tab-pane fade" id="preview" role="tabpanel">
+                <div id="markdown-preview" class="border p-3"></div>
+            </div>
+        </div>
+        <button class="btn btn-success mt-3" onclick="uploadMarkdown()">Gönder</button>
+        <p id="message"></p>
+    </div>
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Showdown JavaScript Library (Markdown to HTML Converter) -->
+    <script src="showdown.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
