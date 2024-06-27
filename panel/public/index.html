@@ -3,49 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Markdown Editor</title>
+    <title>Goygoy Engine Haber Editörü</title>
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container mt-5">
-        <h1 class="text-center mb-4">Markdown Editor</h1>
+        <h1 class="text-center mb-4"><a href="https://goygoyengine.com" target="_blank">Goygoy Engine Haber Editörü</a></h1>        
+        <h6 class="text-center mb-4">Son Güncelleme: 27.06.2024:12.48</h6>
         <form id="metadata-form" class="mb-4">
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="title">Title</label>
-                    <input type="text" class="form-control" id="title" placeholder="Enter title" required>
+                    <label for="title">Başlık</label>
+                    <input type="text" class="form-control" id="title" placeholder="Haber başlığını buraya giriniz" required>
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="writer">Writer</label>
-                    <input type="text" class="form-control" id="writer" placeholder="Enter writer">
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="image">Image</label>
-                    <input type="text" class="form-control" id="image" placeholder="Enter image URL">
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="alt">Alt Text</label>
-                    <input type="text" class="form-control" id="alt" placeholder="Enter alt text">
+                    <label for="writer">Yazar</label>
+                    <input type="text" class="form-control" id="writer" placeholder="Kullanıcı Adınızı Giriniz">
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="summary">Summary</label>
+                    <label for="image">Görsel</label>
+                    <input type="text" class="form-control" id="image" placeholder="Görsel URL'si giriniz">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="alt">Alternatif Metin</label>
+                    <input type="text" class="form-control" id="alt" placeholder="Alternatif Metin, opsiyonel">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="summary">Özet</label>
                     <input type="text" class="form-control" id="summary" placeholder="Enter summary">
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="tags">Tags (comma-separated)</label>
-                    <input type="text" class="form-control" id="tags" placeholder="Enter tags">
+                    <label for="tags">Etiketler (Noktalı virgül ile ayırınız)</label>
+                    <input type="text" class="form-control" id="tags" placeholder="playstation, xbox, haber">
                 </div>
             </div>
             <div class="form-row">
-                <div class="form-group col-md-12">
+                <div class="form-group col-md-6">
                     <label for="accessToken">GitHub Personal Access Token</label>
-                    <input type="password" class="form-control" id="accessToken" placeholder="Enter your GitHub token" required>
+                    <input type="password" class="form-control" id="accessToken" placeholder="GitHub token" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="contentType">İçerik Tipi</label>
+                    <select class="form-control" id="contentType">
+                        <option value="haber">Haber</option>
+                        <option value="inceleme">İnceleme</option>
+                        <option value="makale">Makale</option>
                 </div>
             </div>
         </form>

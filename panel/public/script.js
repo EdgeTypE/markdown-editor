@@ -82,9 +82,12 @@ function uploadMarkdown() {
     const alt = document.getElementById("alt").value || '';
     const writer = document.getElementById("writer").value || 'Konuk';
     const summary = document.getElementById("summary").value || '';
+
+    const accessToken = document.getElementById("accessToken").value;
+    const contentType = document.getElementById("contentType").value;
     const tagsInput = document.getElementById("tags").value || '';
     const tags = tagsInput.split(',').map(tag => tag.trim());
-    const accessToken = document.getElementById("accessToken").value;
+    tags.push(contentType);
 
     // Get current date
     const today = new Date().toISOString().split('T')[0];
@@ -127,7 +130,7 @@ tags:\n`;
 
     // GitHub API upload
     const repoName = 'EdgeTypE/goygoypages';
-    const pathPrefix = 'urara/haberler';
+    const pathPrefix = `urara/${contentType}`;
     const safeTitle = title.replace(/[^a-zA-Z0-9-]/g, '-').toLowerCase();
     const filePath = `${pathPrefix}/${safeTitle}/+page.svelte.md`;
 
