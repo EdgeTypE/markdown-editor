@@ -75,24 +75,31 @@ function updatePreview() {
     preview.innerHTML = html;
 }
 
+function createSafeUrl(title) {
+    const turkishChars = {
+        'ğ': 'g', 'ü': 'u', 'ş': 's', 'ı': 'i', 'ö': 'o', 'ç': 'c',
+        'Ğ': 'G', 'Ü': 'U', 'Ş': 'S', 'İ': 'I', 'Ö': 'O', 'Ç': 'C'
+    };
+    const safeTitle = title.split('').map(char => turkishChars[char] || char).join('')
+        .replace(/[^a-zA-Z0-9-]/g, '-')
+        .replace(/--+/g, '-')
+        .replace(/^-+|-+$/g, '')
+        .toLowerCase();
+    return safeTitle;
+}
+
 function uploadMarkdown() {
-    // Metadata form values
     const title = document.getElementById("title").value || 'Untitled';
     const image = document.getElementById("image").value || '';
     const alt = document.getElementById("alt").value || '';
     const writer = document.getElementById("writer").value || 'Konuk';
     const summary = document.getElementById("summary").value || '';
-
     const accessToken = document.getElementById("accessToken").value;
     const contentType = document.getElementById("contentType").value;
     const tagsInput = document.getElementById("tags").value || '';
     const tags = tagsInput.split(',').map(tag => tag.trim());
     tags.push(contentType);
-
-    // Get current date
-    const today = new Date().toISOString().split('T')[0];
-
-    // Metadata string
+    const today = new Date().toISOString();
     let metadata = `---
 title: "${title}"
 image: '${image}'
@@ -102,13 +109,11 @@ updated: ${today}
 writer: ${writer}
 summary: "${summary}"
 tags:\n`;
-
     tags.forEach(tag => {
         metadata += `  - '${tag}'\n`;
     });
     metadata += `---\n\n`;
 
-    // Script imports
     let scriptImports = `<script>\n`;
     let imports = [];
     const editorContent = document.getElementById("markdown-editor").value;
@@ -121,19 +126,13 @@ tags:\n`;
     }
     scriptImports += `</script>\n\n`;
 
-    // Markdown content
     const markdownContent = editorContent;
     const completeContent = metadata + scriptImports + markdownContent;
-
-    // Convert to base64
     const base64Content = btoa(unescape(encodeURIComponent(completeContent)));
-
-    // GitHub API upload
     const repoName = 'EdgeTypE/goygoypages';
     const pathPrefix = `urara/${contentType}`;
-    const safeTitle = title.replace(/[^a-zA-Z0-9-]/g, '-').toLowerCase();
+    const safeTitle = createSafeUrl(title);
     const filePath = `${pathPrefix}/${safeTitle}/+page.svelte.md`;
-
     const url = `https://api.github.com/repos/${repoName}/contents/${filePath}`;
     const message = `Add new post: ${filePath}`;
 
