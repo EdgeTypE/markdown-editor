@@ -7,11 +7,73 @@
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Default olarak karanlık tema */
+body, .container {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+.nav-link, .btn {
+    color: #e0e0e0;
+}
+
+.nav-link.active {
+    background-color: #1f1f1f;
+}
+
+.form-control, .form-control:focus {
+    background-color: #1f1f1f;
+    color: #e0e0e0;
+    border-color: #333;
+}
+
+.btn-primary {
+    background-color: #6200ee;
+    border-color: #6200ee;
+}
+
+.btn-primary:hover {
+    background-color: #3700b3;
+    border-color: #3700b3;
+}
+
+/* Açık tema için varsayılan ayar */
+body.light-theme, .container.light-theme {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+body.light-theme .nav-link, .btn.light-theme {
+    color: #000000;
+}
+
+body.light-theme .nav-link.active {
+    background-color: #e0e0e0;
+}
+
+body.light-theme .form-control, body.light-theme .form-control:focus {
+    background-color: #ffffff;
+    color: #000000;
+    border-color: #ccc;
+}
+
+body.light-theme .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+body.light-theme .btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+}
+    </style>
 </head>
 <body>
     <div class="container mt-5">
         <h1 class="text-center mb-4"><a href="https://goygoyengine.com" target="_blank">Goygoy Engine Haber Editörü</a></h1>        
         <h6 class="text-center mb-4">Son Güncelleme: 14.07.2024:20.25</h6>
+        <button id="theme-toggle" class="btn btn-secondary mt-3">Tema Değiştir</button>
         <form id="metadata-form" class="mb-4">
             <div class="form-row">
                 <div class="form-group col-md-6">
@@ -99,5 +161,32 @@
     <!-- Showdown JavaScript Library (Markdown to HTML Converter) -->
     <script src="showdown.min.js"></script>
     <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+    // Karanlık tema varsayılan olarak ayarlanır
+    if (!localStorage.getItem('theme')) {
+        localStorage.setItem('theme', 'dark');
+    }
+    setTheme(localStorage.getItem('theme'));
+
+    // Tema değişim butonunun işlevi
+    document.getElementById('theme-toggle').addEventListener('click', () => {
+        const currentTheme = localStorage.getItem('theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        localStorage.setItem('theme', newTheme);
+        setTheme(newTheme);
+    });
+});
+
+function setTheme(theme) {
+    if (theme === 'dark') {
+        document.body.classList.remove('light-theme');
+        document.body.classList.add('dark-theme');
+    } else {
+        document.body.classList.remove('dark-theme');
+        document.body.classList.add('light-theme');
+    }
+}
+    </script>
 </body>
 </html>
